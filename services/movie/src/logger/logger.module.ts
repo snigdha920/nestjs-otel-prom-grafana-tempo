@@ -1,6 +1,7 @@
 import { LoggerModule as PinoLoggerModule } from 'nestjs-pino';
 import { logger } from './logger';
 import { Module } from '@nestjs/common';
+import { LoggingInterceptor } from './logger.interceptor';
 
 @Module({
   imports: [
@@ -12,6 +13,7 @@ import { Module } from '@nestjs/common';
     }),
   ],
   controllers: [],
-  providers: [],
+  providers: [LoggingInterceptor],
+  exports: [LoggingInterceptor],
 })
 export class LoggerModule {}

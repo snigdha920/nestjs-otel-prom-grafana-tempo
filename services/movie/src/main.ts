@@ -3,6 +3,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { Logger } from 'nestjs-pino';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { LoggingInterceptor } from './logger/logger.interceptor';
 
 async function bootstrap() {
   await otelSDK.start();
@@ -10,6 +11,8 @@ async function bootstrap() {
 
   const app = await NestFactory.create(AppModule);
   app.useLogger(app.get(Logger));
+
+  app.useGlobalInterceptors(app.get(LoggingInterceptor));
 
   app.enableShutdownHooks();
   app.enableCors({ origin: '*' });

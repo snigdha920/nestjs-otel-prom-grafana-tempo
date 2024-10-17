@@ -1,9 +1,13 @@
 # Prometheus + Grafana + Tempo + Loki Observability Stack example
 
-### Running
+## Running
 
 `docker-compose up --build`
-### Viewing Traces
-1. Makes some data by visiting `http://localhost:5556/docs`
-2. Make some data by visiting `http://localhost:5555/docs`
-3. View data in grafana by visiting `http://localhost:3000`
+
+### Reproduce the issue
+
+1. Navigate to `http://localhost:5556/docs`
+2. Execute the `GET /movies` endpoint
+3. You will see the logger interceptor log the name of the `MovieController`, but it cannot log the name of the `list` method of the controller correctly because of the @Span decorator. It logs `PropertyDescriptor` instead.
+
+![alt text](image.png)
